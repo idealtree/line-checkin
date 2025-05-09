@@ -10,7 +10,7 @@
   <button onclick="checkOut()">เช็คเอาท์</button>
   <script>
     async function getProfile() {
-      await liff.init({ liffId: "YOUR_LIFF_ID" });
+      await liff.init({ liffId: "2007391146-PqxWzyGJ" });
       const profile = await liff.getProfile();
       return profile;
     }
@@ -31,7 +31,7 @@
         location: position
       };
 
-      await fetch("YOUR_GOOGLE_APPS_SCRIPT_WEBAPP_URL", {
+      await fetch("https://script.google.com/macros/s/AKfycbyXf-8zYNxzq7IFDQbnA2f21FnVTAvAxb0QNz5UFdV2YpDUg7rWpq08uzWXJizjKdF8/exec", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
