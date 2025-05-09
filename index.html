@@ -12,6 +12,10 @@
     async function getProfile() {
       await liff.init({ liffId: "2007391146-PqxWzyGJ" });
       const profile = await liff.getProfile();
+      if (!profile) {
+        alert("ไม่สามารถดึงข้อมูลโปรไฟล์ได้");
+        return null;
+      }
       return profile;
     }
 
