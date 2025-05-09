@@ -41,8 +41,10 @@
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
-      });
-      alert("บันทึกสำเร็จ");
+      })
+      .then(response => response.text())
+      .then(data => alert("เช็คอินสำเร็จ"))
+      .catch(error => alert("Error:", error));
     }
 
     function checkIn() { sendData("checkin"); }
