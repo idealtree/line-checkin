@@ -16,6 +16,7 @@
     }
 
     async function sendData(type) {
+      alert(type);
       const profile = await getProfile();
       const position = await new Promise(resolve => {
         navigator.geolocation.getCurrentPosition(pos => {
@@ -31,6 +32,7 @@
         location: position
       };
 
+      alert(JSON.stringify(payload));
       await fetch("https://script.google.com/macros/s/AKfycbyXf-8zYNxzq7IFDQbnA2f21FnVTAvAxb0QNz5UFdV2YpDUg7rWpq08uzWXJizjKdF8/exec", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
