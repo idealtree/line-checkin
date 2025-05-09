@@ -37,7 +37,7 @@
       };
 
       alert(JSON.stringify(payload));
-      await fetch("https://script.google.com/macros/s/AKfycbyXf-8zYNxzq7IFDQbnA2f21FnVTAvAxb0QNz5UFdV2YpDUg7rWpq08uzWXJizjKdF8/exec", {
+      fetch("https://script.google.com/macros/s/AKfycbyXf-8zYNxzq7IFDQbnA2f21FnVTAvAxb0QNz5UFdV2YpDUg7rWpq08uzWXJizjKdF8/exec", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
