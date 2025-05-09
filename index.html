@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>เช็คชื่อพนักงาน</title>
+  <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+</head>
+<body>
+  <h2>ระบบเช็คชื่อพนักงาน</h2>
+  <button onclick="checkIn()">เช็คอิน</button>
+  <button onclick="checkOut()">เช็คเอาท์</button>
+  <script>
+    async function getProfile() {
+      await liff.init({ liffId: "YOUR_LIFF_ID" });
+      const profile = await liff.getProfile();
+      return profile;
+    }
+
+    async function sendData(type) {
+      const profile = await getProfile();
+      const position = await new Promise(resolve => {
+        navigator.geolocation.getCurrentPosition(pos => {
+          resolve(pos.coords.latitude + ',' + pos.coords.longitude);
+        });
+      });
+
+      const payload = {
+        type: type,
+        line_id: profile.userId,
+        name: profile.displayName,
+        employee_id: "", // Optional: Let system auto match
+        location: position
+      };
+
+      await fetch("YOUR_GOOGLE_APPS_SCRIPT_WEBAPP_URL", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      alert("บันทึกสำเร็จ");
+    }
+
+    function checkIn() { sendData("checkin"); }
+    function checkOut() { sendData("checkout"); }
+  </script>
+</body>
+</html>
