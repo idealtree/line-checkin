@@ -37,19 +37,7 @@
       };
 
       alert(JSON.stringify(payload));
-      // Send data to Google Apps Script
-      // Replace with your Google Apps Script URL
-      // Make sure to set up the Google Apps Script to accept POST requests
-      // and handle the data accordingly
-      // Example:
-      // https://script.google.com/macros/s/AKfycbx.../exec
-      // Note: You need to set up CORS in your Google Apps Script to allow requests from your domain
-      // Example CORS setup in Google Apps Script:
-      // function doGet(e) {
-      //   return ContentService.createTextOutput("CORS enabled");
-      // }
 
-      
       fetch("https://script.google.com/macros/s/AKfycbyXf-8zYNxzq7IFDQbnA2f21FnVTAvAxb0QNz5UFdV2YpDUg7rWpq08uzWXJizjKdF8/exec", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -57,7 +45,7 @@
       })
       .then(response => response.text())
       .then(data => alert("เช็คอินสำเร็จ"))
-      .catch(error => alert("Error:", error));
+      .catch(error => alert("Error:", JSON.stringify(error)));
     }
 
     function checkIn() { sendData("checkin"); }
