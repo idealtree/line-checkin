@@ -5,7 +5,7 @@
   <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
 </head>
 <body>
-  <h2>ระบบเช็คชื่อพนักงาน v0.1</h2>
+  <h2>ระบบเช็คชื่อพนักงาน v0.2</h2>
   <button onclick="checkIn()">เช็คอิน</button>
   <button onclick="checkOut()">เช็คเอาท์</button>
   <script>
@@ -28,20 +28,23 @@
         });
       });
 
-      const payload = {
-          type: "checkin",
-          line_id: "Ubc7985171fef4aa8447d3612d497Abcd",
-          name: "Jaa",
-          employee_id: "EMP003",
-          location: "13.8354555,100.696234"
-      };
+      const payload = JSON.stringify({
+        "type": "checkin",
+        "line_id": "Ubc7985171fef4aa8447d3612d497Abcd",
+        "name": "Jaa",
+        "employee_id": "EMP003",
+        "location": "13.8354555,100.696234"
+      });
 
       alert(JSON.stringify(payload));
 
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+
       fetch("https://script.google.com/macros/s/AKfycbyXf-8zYNxzq7IFDQbnA2f21FnVTAvAxb0QNz5UFdV2YpDUg7rWpq08uzWXJizjKdF8/exec", {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(payload)
+        headers: myHeaders,
+        body: payload
       })
       .then(response => response.text())
       .then(data => alert("เช็คอินสำเร็จ: " + data.message))
