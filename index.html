@@ -45,7 +45,7 @@
       })
       .then(response => response.text())
       .then(data => alert("เช็คอินสำเร็จ"))
-      .catch(error => alert("Error:", JSON.stringify(error)));
+      .catch(error => alert("Error:" + error?.message || error));
     }
 
     function checkIn() { sendData("checkin"); }
