@@ -29,18 +29,18 @@
       });
 
       const payload = {
-        type: type,
-        line_id: profile.userId,
-        name: profile.displayName,
-        employee_id: 'EMP003',
-        location: position
+          type: "checkin",
+          line_id: "Ubc7985171fef4aa8447d3612d497Abcd",
+          name: "Jaa",
+          employee_id: "EMP003",
+          location: "13.8354555,100.696234"
       };
 
       alert(JSON.stringify(payload));
 
       fetch("https://script.google.com/macros/s/AKfycbyXf-8zYNxzq7IFDQbnA2f21FnVTAvAxb0QNz5UFdV2YpDUg7rWpq08uzWXJizjKdF8/exec", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {"Content-Type": "application/json"},
         body: JSON.stringify(payload)
       })
       .then(response => response.text())
