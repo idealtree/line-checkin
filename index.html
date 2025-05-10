@@ -32,7 +32,7 @@
         type: type,
         line_id: profile.userId,
         name: profile.displayName,
-        employee_id: "", // Optional: Let system auto match
+        employee_id: 'EMP003',
         location: position
       };
 
@@ -44,8 +44,8 @@
         body: JSON.stringify(payload)
       })
       .then(response => response.text())
-      .then(data => alert("เช็คอินสำเร็จ"))
-      .catch(error => alert("Error:" + error?.message || error));
+      .then(data => alert("เช็คอินสำเร็จ: " + data.message))
+      .catch(error => alert("เกิดข้อผิดพลาด: " + error?.message || error));
     }
 
     function checkIn() { sendData("checkin"); }
