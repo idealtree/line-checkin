@@ -5,7 +5,7 @@
   <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
 </head>
 <body>
-  <h2>ระบบเช็คชื่อพนักงาน v0.4</h2>
+  <h2>ระบบเช็คชื่อพนักงาน v0.5</h2>
   <button onclick="checkIn()">เช็คอิน</button>
   <button onclick="checkOut()">เช็คเอาท์</button>
   <script>
@@ -28,11 +28,12 @@
     async function sendData(type) {
       alert(type);
       const profile = await getProfile();
-    //if profile is null show alert and set payload default data
-    // if profile not null set payload with profile data
+      let payload = null;
+      let position = null;
+
       if (!profile) {
         alert("ไม่สามารถดึงข้อมูลโปรไฟล์ได้");
-        const payload = JSON.stringify({
+        payload = JSON.stringify({
           "type": "checkin",
           "line_id": "Ubc7985171fef4aa8447d3612d497Abcd",
           "name": "Jaa",
@@ -40,12 +41,12 @@
           "location": "13.8354555,100.696234"
         });
       }else{
-        const position = await new Promise(resolve => {
+        position = await new Promise(resolve => {
           navigator.geolocation.getCurrentPosition(pos => {
             resolve(pos.coords.latitude + ',' + pos.coords.longitude);
           });
         });
-        const payload = JSON.stringify({
+        payload = JSON.stringify({
           "type": type,
           "line_id": profile.userId,
           "name": profile.displayName,
