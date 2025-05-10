@@ -12,31 +12,49 @@
     async function getProfile() {
       await liff.init({ liffId: "2007391146-PqxWzyGJ" });
       const profile = await liff.getProfile();
-      if (!profile) {
-        alert("ไม่สามารถดึงข้อมูลโปรไฟล์ได้");
+      // if cant connect to liff showw alert
+      if (liff.isApiAvailable("getProfile")) {
+        alert("ไม่สามารถเชื่อมต่อกับ LIFF ได้");
         return null;
       }
+
+      /*if (!profile) {
+        alert("ไม่สามารถดึงข้อมูลโปรไฟล์ได้");
+        return null;
+      }*/
       return profile;
     }
 
     async function sendData(type) {
       alert(type);
       const profile = await getProfile();
-      const position = await new Promise(resolve => {
-        navigator.geolocation.getCurrentPosition(pos => {
-          resolve(pos.coords.latitude + ',' + pos.coords.longitude);
+    //if profile is null show alert and set payload default data
+    // if profile not null set payload with profile data
+      if (!profile) {
+        alert("ไม่สามารถดึงข้อมูลโปรไฟล์ได้");
+        const payload = JSON.stringify({
+          "type": "checkin",
+          "line_id": "Ubc7985171fef4aa8447d3612d497Abcd",
+          "name": "Jaa",
+          "employee_id": "EMP003",
+          "location": "13.8354555,100.696234"
         });
-      });
+      }else{
+        const position = await new Promise(resolve => {
+          navigator.geolocation.getCurrentPosition(pos => {
+            resolve(pos.coords.latitude + ',' + pos.coords.longitude);
+          });
+        });
+        const payload = JSON.stringify({
+          "type": type,
+          "line_id": profile.userId,
+          "name": profile.displayName,
+          "employee_id": profile.userId,
+          "location": position
+        });
+      }
 
-      const payload = JSON.stringify({
-        "type": "checkin",
-        "line_id": "Ubc7985171fef4aa8447d3612d497Abcd",
-        "name": "Jaa",
-        "employee_id": "EMP003",
-        "location": "13.8354555,100.696234"
-      });
-
-      alert(JSON.stringify(payload));
+      alert("payload: " + payload);
 
       const myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
